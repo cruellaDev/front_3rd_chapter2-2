@@ -22,23 +22,20 @@ export const calculateCartTotal = (
     (sum, item) => sum + item.quantity * item.product.price,
     0
   );
-  const totalDiscountByItem = cart.reduce(
-    (sum, item) =>
-      sum + item.product.price * item.quantity * getMaxApplicableDiscount(item),
+  const totalItem = cart.reduce(
+    (sum, item) => sum + calculateItemTotal(item),
     0
   );
-  const totalDiscountByCoupon = !selectedCoupon
-    ? 0
+  const totalAfterDiscount = !selectedCoupon
+    ? totalItem
     : selectedCoupon.discountType === 'amount'
-    ? selectedCoupon.discountValue
-    : ((totalBeforeDiscount - totalDiscountByItem) *
-        selectedCoupon.discountValue) /
-      100;
+    ? totalItem - selectedCoupon.discountValue
+    : (totalItem * (100 - selectedCoupon.discountValue)) / 100;
+
   return {
     totalBeforeDiscount,
-    totalAfterDiscount:
-      totalBeforeDiscount - totalDiscountByItem - totalDiscountByCoupon,
-    totalDiscount: totalDiscountByItem + totalDiscountByCoupon,
+    totalAfterDiscount,
+    totalDiscount: totalBeforeDiscount - totalAfterDiscount,
   };
 };
 
