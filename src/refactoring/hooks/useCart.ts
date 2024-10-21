@@ -8,15 +8,18 @@ import { calculateCartTotal, updateCartItemQuantity } from './utils/cartUtils';
  * @returns {object} 장바구니 데이터와 장바구니 데이터 관리를 위한 메소드를 제공합니다.
  */
 export const useCart = (): {
-    cart: CartItem[],
-    addToCart : any,
-    removeFromCart: any,
-    updateQuantity: any,
-    applyCoupon: any,
-    calculateTotal: object,
-    selectedCoupon: Coupon | null,
+  cart: CartItem[];
+  addToCart: any;
+  removeFromCart: any;
+  updateQuantity: any;
+  applyCoupon: any;
+  calculateTotal: () => {
+    totalBeforeDiscount: number;
+    totalAfterDiscount: number;
+    totalDiscount: number;
+  };
+  selectedCoupon: Coupon | null;
 } => {
-
   /**
    * 장바구니 관련 상태를 관리합니다.
    */
@@ -29,7 +32,7 @@ export const useCart = (): {
    * 장바구니에 아이템을 추가합니다.
    * @param {Product} product 추가할 상품
    */
-  const addToCart = (product: Product) : void => {
+  const addToCart = (product: Product): void => {
     const currentItem = cart.find((item) => item.product.id === product.id);
     if (currentItem) {
       setCart((prevCart) =>
@@ -48,7 +51,7 @@ export const useCart = (): {
    * 장바구니에서 아이템을 제거합니다.
    * @param {number} productId 제거할 상품ID
    */
-  const removeFromCart = (productId: string) : void => {
+  const removeFromCart = (productId: string): void => {
     setCart((prevCart) =>
       prevCart.filter((item) => item.product.id !== productId)
     );
@@ -59,7 +62,7 @@ export const useCart = (): {
    * @param {number} productId 변경할 상품ID
    * @param {number} newQuantity 신규수량
    */
-  const updateQuantity = (productId: string, newQuantity: number) : void => {
+  const updateQuantity = (productId: string, newQuantity: number): void => {
     setCart((prevCart) =>
       updateCartItemQuantity(prevCart, productId, newQuantity)
     );
@@ -70,13 +73,17 @@ export const useCart = (): {
    * @param {Coupon} coupon 적용할 쿠폰
    * @returns {void}
    */
-  const applyCoupon = (coupon: Coupon) : void => setSelectedCoupon(coupon);
+  const applyCoupon = (coupon: Coupon): void => setSelectedCoupon(coupon);
 
   /**
    * 장바구니 총 합계를 계산합니다.
-   * @returns {object} 할인 전 총액, 할인 후 총액, 총 할인 금액
+   * @returns 할인 전 총액, 할인 후 총액, 총 할인 금액
    */
-  const calculateTotal = () : object => calculateCartTotal(cart, selectedCoupon);
+  const calculateTotal = (): {
+    totalBeforeDiscount: number;
+    totalAfterDiscount: number;
+    totalDiscount: number;
+  } => calculateCartTotal(cart, selectedCoupon);
 
   return {
     cart,
