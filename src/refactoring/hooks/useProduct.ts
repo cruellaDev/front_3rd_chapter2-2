@@ -1,10 +1,29 @@
 import { useState } from 'react';
 import { Product } from '../../types.ts';
 
-export const useProducts = (initialProducts: Product[]) => {
+/**
+ * 상품을 관리하는 사용자 정의 hook 입니다.
+ * @param {Product[]} initialProducts 상품 목록 초깃값
+ * @returns {object} 상품 데이터와 장바구니 상품 관리를 위한 메소드를 제공합니다.
+ */
+export const useProducts = (initialProducts: Product[]) : {
+products: Product[],
+updateProduct: any,
+addProduct: any
+} => {
+
+  /**
+   * 상품 관련 상태를 관리합니다.
+   */
+  // 1. 상품 목록
   const [products, setProducts] = useState<Product[]>(initialProducts);
 
-  const updateProduct = (product: Product) => {
+  /**
+   * 상품을 수정합니다.
+   * @param {Product} product 상품 수정 데이터
+   * @returns {void}
+   */
+  const updateProduct = (product: Product) : void => {
     const currentProduct = products.find((item) => item.id === product.id);
     if (!currentProduct) return;
     setProducts((prevProducts) =>
@@ -14,7 +33,12 @@ export const useProducts = (initialProducts: Product[]) => {
     );
   };
 
-  const addProduct = (product: Product) => {
+  /**
+   * 상품을 추가합니다.
+   * @param {Product} product 상품 추가 데이터
+   * @returns {void}
+   */
+  const addProduct = (product: Product) : void => {
     const newProduct = {
       ...product,
       id: product.id ?? `p${products.length + 1}`,
