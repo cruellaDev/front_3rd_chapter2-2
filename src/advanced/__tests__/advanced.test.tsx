@@ -5,6 +5,7 @@ import { CartPage } from '../../refactoring/components/CartPage';
 import { AdminPage } from "../../refactoring/components/AdminPage";
 import { CartItem, Coupon, Discount, Product } from '../../types';
 import * as discountUtils from "../../refactoring/hooks/utils/discountUtils";
+import * as cartUtils from "../../refactoring/hooks/utils/cartUtils";
 
 const mockProducts: Product[] = [
   {
@@ -259,6 +260,39 @@ describe('advanced > ', () => {
       });
 
     });
+
+    describe('cartUtils', () => {
+      const testProduct: Product = {
+        id: '1',
+        name: 'Test Product',
+        price: 100,
+        stock: 10,
+        discounts: [
+          { quantity: 2, rate: 0.1 },
+          { quantity: 5, rate: 0.2 }
+        ]
+      };
+  
+      describe('getCartItemByProductId', () => {
+        const cart: CartItem[] = [
+          { product: testProduct, quantity: 2 },
+          { product: {...testProduct, id: '2', price: 200}, quantity: 1 }
+        ];
+
+        test('장바구니 내 아이템 목록에서 상품ID를 기준으로 아이템을 찾아 반환해야 합니다.', () => {
+          expect(cartUtils.getCartItemByProductId(cart, '1')).toEqual({ product: testProduct, quantity: 2 });
+        });
+      });
+
+      describe('getRemainingStock', () => {
+        const cartItem: CartItem = { product: testProduct, quantity: 2 };
+
+        test('장바구니 내 아이템의 잔여재고를 반환해야 합니다.', () => {
+          expect(cartUtils.getRemainingStock(testProduct, cartItem)).toBe(8);
+        });
+      });
+    });
+
     test('새로운 hook 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
       expect(true).toBe(false);
     })
