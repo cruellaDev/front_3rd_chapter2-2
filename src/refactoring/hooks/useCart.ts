@@ -1,7 +1,11 @@
 // useCart.ts
 import { useState } from 'react';
 import { CartItem, Coupon, Product } from '../../types';
-import { calculateCartTotal, updateCartItemQuantity } from './utils/cartUtils';
+import {
+  getCartItemByProductId,
+  calculateCartTotal,
+  updateCartItemQuantity,
+} from './utils/cartUtils';
 
 /**
  * 장바구니를 관리하는 사용자 정의 hook 입니다.
@@ -33,7 +37,7 @@ export const useCart = (): {
    * @param {Product} product 추가할 상품
    */
   const addToCart = (product: Product): void => {
-    const currentItem = cart.find((item) => item.product.id === product.id);
+    const currentItem = getCartItemByProductId(cart, product.id);
     if (currentItem) {
       setCart((prevCart) =>
         prevCart.map((item) =>
