@@ -1,4 +1,5 @@
-import { CartItem, Coupon } from '../../../types';
+import { CartItem, Coupon, Product } from '../../../types';
+import { getMaxDiscountByQuantity } from './discountUtils';
 
 /**
  * 장바구니 아이템의 총액을 계산합니다.
@@ -17,12 +18,8 @@ export const calculateItemTotal = (item: CartItem): number => {
  * @param {CartItem} item 장바구니 아이템
  * @returns {number} 적용 가능 최대 할인율
  */
-export const getMaxApplicableDiscount = (item: CartItem): number => {
-  return item.product.discounts.reduce(
-    (max, discount) =>
-      discount.quantity <= item.quantity ? Math.max(max, discount.rate) : max,
-    0
-  );
+export const getMaxApplicableDiscount = ({ product, quantity }: CartItem): number => {
+  return getMaxDiscountByQuantity(product.discounts, quantity);
 };
 
 /**
