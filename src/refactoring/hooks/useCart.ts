@@ -9,10 +9,10 @@ import { calculateCartTotal, updateCartItemQuantity } from './utils/cartUtils';
  */
 export const useCart = (): {
   cart: CartItem[];
-  addToCart: any;
-  removeFromCart: any;
-  updateQuantity: any;
-  applyCoupon: any;
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, newQuantity: number) => void;
+  applyCoupon: (coupon: Coupon) => void;
   calculateTotal: () => {
     totalBeforeDiscount: number;
     totalAfterDiscount: number;

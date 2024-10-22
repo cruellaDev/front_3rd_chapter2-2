@@ -6,11 +6,12 @@ import { useState } from 'react';
  * @param {Coupon[]} initialCoupons 쿠폰 목록 초깃값
  * @returns {object} 쿠폰 데이터와 쿠폰 데이터 관리를 위한 메소드를 제공합니다.
  */
-export const useCoupons = (initialCoupons: Coupon[]): {
-  coupons: Coupon[],
-  addCoupon: any
+export const useCoupons = (
+  initialCoupons: Coupon[]
+): {
+  coupons: Coupon[];
+  addCoupon: (coupon: Coupon) => void;
 } => {
-
   /**
    * 쿠폰 관련 상태를 관리합니다.
    */
@@ -22,7 +23,7 @@ export const useCoupons = (initialCoupons: Coupon[]): {
    * @param {Coupon} coupon 쿠폰 추가 데이터
    * @returns {void}
    */
-  const addCoupon = (coupon: Coupon) : void => {
+  const addCoupon = (coupon: Coupon): void => {
     setCoupons((prevCoupons) => prevCoupons.concat(coupon));
   };
 
