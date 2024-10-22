@@ -91,3 +91,23 @@ export const updateCartItemQuantity = (
       : item
   );
 };
+
+/**
+ * 장바구니 내 아이템 목록에서 상품ID를 기준으로 아이템을 찾아 반환합니다.
+ * @param {CartItem[]} items 장바구니 아이템 목록
+ * @param {string} productId 상품ID
+ * @returns {CartItem} 해당 상품ID를 가진 장바구니 아이템
+ */
+export const getCartItemByProductId = (items: CartItem[], productId: string) : CartItem | undefined => {
+  return items.find(item => item.product.id === productId);
+};
+
+/**
+ * 장바구니 내 아이템의 잔여재고를 반환합니다.
+ * @param {Product} product 상품
+ * @param {CartItem | undefined} cartItem 장바구니 내 아이템 목록 
+ * @returns {number} 해당 상품의 잔여재고
+ */
+export const getRemainingStock = (product: Product, cartItem: CartItem | undefined) : number => {
+  return product.stock - (cartItem?.quantity || 0);
+};
