@@ -3,7 +3,8 @@ import { describe, expect, test } from 'vitest';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { CartPage } from '../../refactoring/components/CartPage';
 import { AdminPage } from "../../refactoring/components/AdminPage";
-import { Coupon, Product } from '../../types';
+import { CartItem, Coupon, Discount, Product } from '../../types';
+import * as discountUtils from "../../refactoring/hooks/utils/discountUtils";
 
 const mockProducts: Product[] = [
   {
@@ -232,11 +233,33 @@ describe('advanced > ', () => {
   })
 
   describe('자유롭게 작성해보세요.', () => {
-    test('새로운 유틸 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
-      expect(true).toBe(false);
-    })
+    // test('새로운 유틸 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
+    //   expect(true).toBe(false);
+    // })
 
-    test('새로운 hook 함수르 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
+    describe('discountUtils', () => {
+      const discounts: Discount[] = [
+        { quantity: 2, rate: 0.1 },
+        { quantity: 5, rate: 0.2 }
+      ];
+
+      describe('getMaxDiscount', () => {
+        test('할인율 목록 중 최대 할인율을 반환해야 합니다.', () => {
+          expect(discountUtils.getMaxDiscount(discounts)).toBe(0.2);
+        });
+      });
+
+      describe('getMaxDiscountByQuantity', () => {
+        test('할인율 목록 중 최대 할인율을 반환해야 합니다.', () => {
+          expect(discountUtils.getMaxDiscountByQuantity(discounts, 3)).toBe(0.1);
+        });
+        test('할인율 목록 내 수량 기준과 비교하여 최대 할인율을 반환해야 합니다.', () => {
+          expect(discountUtils.getMaxDiscountByQuantity(discounts, 5)).toBe(0.2);
+        });
+      });
+
+    });
+    test('새로운 hook 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
       expect(true).toBe(false);
     })
   })
