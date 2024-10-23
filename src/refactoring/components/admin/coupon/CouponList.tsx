@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Coupon } from '../../../types.ts';
+import { Coupon } from '../../../../types.ts';
 
 // 쿠폰 목록
 export const CouponList: React.FC<{

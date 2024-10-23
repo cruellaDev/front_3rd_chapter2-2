@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Coupon } from '../../../types.ts';
+import { Coupon } from '../../../../types.ts';
 
 // 쿠폰 적용
 export const CouponRedemption: React.FC<{

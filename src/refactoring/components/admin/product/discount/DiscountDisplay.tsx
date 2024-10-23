@@ -1,4 +1,4 @@
-import { Discount } from '../../../types.ts';
+import { Discount } from '../../../../../types.ts';
 
 // 할인 전시
 export const DiscountDisplay: React.FC<{

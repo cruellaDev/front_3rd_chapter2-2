@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Coupon } from '../../../types.ts';
+import { Coupon } from '../../../../types.ts';
 
 const initialCoupon: Coupon = {
   name: '',

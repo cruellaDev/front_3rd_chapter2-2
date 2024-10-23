@@ -1,29 +1,8 @@
-import { memo } from 'react';
-import { getMaxDiscountByQuantity } from '../../hooks/utils/discountUtils.ts';
-import { CartItem } from '../../../types.ts';
-
-// 장바구니 아이템 목록
-export const CartItemList: React.FC<{
-  cart: CartItem[];
-  updateQuantity: (productId: string, newQuantity: number) => void;
-  removeFromCart: (productId: string) => void;
-}> = memo(({ cart, updateQuantity, removeFromCart }) => {
-  return (
-    <div className="space-y-2">
-      {cart.map((cartItem) => (
-        <CartItemDetail
-          key={cartItem.product.id}
-          cartItem={cartItem}
-          updateQuantity={updateQuantity}
-          removeFromCart={removeFromCart}
-        />
-      ))}
-    </div>
-  );
-});
+import { getMaxDiscountByQuantity } from '../../../utils/discountUtils.ts';
+import { CartItem } from '../../../../types.ts';
 
 // 장바구니 아이템 상세
-const CartItemDetail: React.FC<{
+export const CartItemDetail: React.FC<{
   cartItem: CartItem;
   updateQuantity: (productId: string, newQuantity: number) => void;
   removeFromCart: (productId: string) => void;

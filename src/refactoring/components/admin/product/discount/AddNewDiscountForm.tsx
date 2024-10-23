@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Discount } from '../../../types.ts';
+import { Discount } from '../../../../../types.ts';
 
 const initialDiscount: Discount = {
   quantity: 0,

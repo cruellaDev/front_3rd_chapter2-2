@@ -1,6 +1,6 @@
-import { Discount } from '../../../types.ts';
-import { DiscountDisplay } from './DiscountDisplay';
-import { AddNewDiscountForm } from './AddNewDiscountForm';
+import { Discount } from '../../../../../types.ts';
+import { DiscountDisplay } from './DiscountDisplay.tsx';
+import { AddNewDiscountForm } from './AddNewDiscountForm.tsx';
 
 // 할인 정보
 export const DiscountInfo: React.FC<{

@@ -1,5 +1,5 @@
-import { Coupon, Product } from '../../types.ts';
-import { ProductManagement, CouponManagement } from './admin';
+import { Coupon, Product } from '../../../types.ts';
+import { ProductManagement, CouponManagement } from './index.ts';
 
 interface Props {
   products: Product[];

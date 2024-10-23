@@ -1,4 +1,4 @@
-import { Coupon } from '../../../types.ts';
+import { Coupon } from '../../../../types.ts';
 import { AddNewCouponForm } from './AddNewCouponForm';
 import { CouponList } from './CouponList';
 

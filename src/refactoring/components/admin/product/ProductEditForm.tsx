@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Product, Discount } from '../../../types.ts';
+import { Product, Discount } from '../../../../types.ts';
 import {
   addDiscountToProduct as addDiscount,
   removeDiscountFromProduct as removeDiscount,
-} from '../../hooks/utils/productUtils.ts';
-import { DiscountInfo } from './DiscountInfo';
+} from '../../../utils/productUtils.ts';
+import { DiscountInfo } from './discount/DiscountInfo';
 
 // 상품 수정 폼
 export const ProductEditForm: React.FC<{

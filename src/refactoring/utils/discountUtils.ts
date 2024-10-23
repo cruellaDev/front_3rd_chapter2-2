@@ -1,4 +1,4 @@
-import { Discount } from '../../../types';
+import { Discount } from '../../types';
 
 /**
  * 할인율 목록 중 최대 할인율을 반환합니다.

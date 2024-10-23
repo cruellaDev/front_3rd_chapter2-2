@@ -1,5 +1,5 @@
-import { Product } from '../../../types.ts';
-import { AddNewProduct } from './AddNewProduct';
+import { Product } from '../../../../types.ts';
+import { NewProduct } from './NewProduct';
 import { ProductList } from './ProductList';
 
 // 상품 관리
@@ -11,7 +11,7 @@ export const ProductManagement: React.FC<{
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 관리</h2>
-      <AddNewProduct onProductAdd={onProductAdd} />
+      <NewProduct onProductAdd={onProductAdd} />
       <ProductList products={products} onProductUpdate={onProductUpdate} />
     </div>
   );

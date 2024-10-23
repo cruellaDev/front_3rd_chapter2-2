@@ -1,4 +1,4 @@
-import { CartItem, Coupon, Product } from '../../../types';
+import { CartItem, Coupon, Product } from '../../types';
 import { getMaxDiscountByQuantity } from './discountUtils';
 
 /**
@@ -100,14 +100,4 @@ export const updateCartItemQuantity = (
  */
 export const getCartItemByProductId = (items: CartItem[], productId: string) : CartItem | undefined => {
   return items.find(item => item.product.id === productId);
-};
-
-/**
- * 장바구니 내 아이템의 잔여재고를 반환합니다.
- * @param {Product} product 상품
- * @param {CartItem | undefined} cartItem 장바구니 내 아이템 목록 
- * @returns {number} 해당 상품의 잔여재고
- */
-export const getRemainingStock = (product: Product, cartItem: CartItem | undefined) : number => {
-  return product.stock - (cartItem?.quantity || 0);
 };

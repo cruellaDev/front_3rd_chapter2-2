@@ -1,7 +1,7 @@
-import { CartItem, Coupon } from '../../../types.ts';
-import { CartItemList } from './CartItemList.tsx';
-import { CouponRedemption } from './CouponRedemption.tsx';
-import { OrderSummary } from './OrderSummary.tsx';
+import { CartItem, Coupon } from '../../../../types.ts';
+import { CartItemList } from './CartItemList';
+import { CouponRedemption } from './CouponRedemption';
+import { OrderSummary } from './OrderSummary';
 
 // 장바구니 내역
 export const CartDetails: React.FC<{
@@ -18,12 +18,12 @@ export const CartDetails: React.FC<{
   selectedCoupon: Coupon | null;
 }> = ({
   cart,
+  coupons,
   calculateTotal,
   updateQuantity,
   removeFromCart,
   applyCoupon,
   selectedCoupon,
-  coupons,
 }) => {
   return (
     <div>

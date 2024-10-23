@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Product } from '../../../types.ts';
+import { Product } from '../../../../types.ts';
 import { ProductAccordion } from './ProductAccordian';
 
 

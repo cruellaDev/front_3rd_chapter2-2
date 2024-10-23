@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Product } from '../../../types.ts';
-import { getProductWithId } from '../../hooks/utils/productUtils.ts';
+import { Product } from '../../../../types.ts';
+import { getProductWithId } from '../../../utils/productUtils.ts';
 
 const initialProduct: Omit<Product, 'id'> = {
   name: '',

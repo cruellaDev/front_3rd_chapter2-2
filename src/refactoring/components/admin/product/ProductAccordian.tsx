@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Product } from '../../../types.ts';
+import { Product } from '../../../../types.ts';
 import { ProductEditForm } from './ProductEditForm';
-import { DiscountDisplay } from './DiscountDisplay';
+import { DiscountDisplay } from './discount/DiscountDisplay';
 
 // 상품 아코디언
 export const ProductAccordion: React.FC<{

@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Product } from '../../../types.ts';
+import { Product } from '../../../../types.ts';
 import { AddNewProductForm } from './AddNewProductForm';
 
 // 신규 상품 추가
-export const AddNewProduct: React.FC<{
+export const NewProduct: React.FC<{
   onProductAdd: (newProduct: Product) => void;
 }> = ({ onProductAdd }) => {
   const [isEditing, setIsEditing] = useState(false);
