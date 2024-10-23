@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { describe, expect, test } from 'vitest';
-import { act, fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, renderHook, screen, within } from '@testing-library/react';
 import { CartPage } from '../../refactoring/components/shop/CartPage';
 import { AdminPage } from "../../refactoring/components/admin/AdminPage";
 import { CartItem, Coupon, Discount, Product } from '../../types';
 import * as discountUtils from "../../refactoring/utils/discountUtils";
 import * as cartUtils from "../../refactoring/utils/cartUtils";
 import * as productUtils from "../../refactoring/utils/productUtils";
+import { useCart } from "../../refactoring/hooks";
 
 const mockProducts: Product[] = [
   {
@@ -300,11 +301,11 @@ describe('advanced > ', () => {
         });
       });
 
-      describe('getRemainingStock', () => {
+      describe('calculateRemainingStock', () => {
         const cartItem: CartItem = { product: testProduct, quantity: 2 };
 
-        test('장바구니 내 아이템의 잔여재고를 반환해야 합니다.', () => {
-          expect(cartUtils.getRemainingStock(testProduct, cartItem)).toBe(8);
+        test('장바구니 내 아이템의 잔여재고를 계산해야 합니다.', () => {
+          expect(cartUtils.calculateRemainingStock(testProduct, cartItem)).toBe(8);
         });
       });
     });
@@ -350,9 +351,24 @@ describe('advanced > ', () => {
       });
     });
 
-    test('새로운 hook 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
-      expect(true).toBe(false);
-    })
+    // test('새로운 hook 함수를 만든 후에 테스트 코드를 작성해서 실행해보세요', () => {
+    //   expect(true).toBe(false);
+    // })
+
+    describe('useCart', () => {
+      const testProduct: Product = { id: '1', name: 'Test Product', price: 100, stock: 10, discounts: [] };
+      describe('getRemainingStock', () => {
+        test('잔여재고가 정확히 나와야 합니다.', () => {
+
+          const { result } = renderHook(() => useCart());
+          act(() => {
+            result.current.addToCart(testProduct);
+          });
+          expect(result.current.cart).toHaveLength(1);
+          expect(result.current.getRemainingStock(testProduct)).toBe(9);
+        });
+      });
+    });
   })
 })
 
