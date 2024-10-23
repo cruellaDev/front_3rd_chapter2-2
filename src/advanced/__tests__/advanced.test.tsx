@@ -6,6 +6,7 @@ import { AdminPage } from "../../refactoring/components/AdminPage";
 import { CartItem, Coupon, Discount, Product } from '../../types';
 import * as discountUtils from "../../refactoring/hooks/utils/discountUtils";
 import * as cartUtils from "../../refactoring/hooks/utils/cartUtils";
+import * as productUtils from "../../refactoring/hooks/utils/productUtils";
 
 const mockProducts: Product[] = [
   {
@@ -304,6 +305,47 @@ describe('advanced > ', () => {
 
         test('장바구니 내 아이템의 잔여재고를 반환해야 합니다.', () => {
           expect(cartUtils.getRemainingStock(testProduct, cartItem)).toBe(8);
+        });
+      });
+    });
+
+    describe('productUtils', () => {
+      const testProduct: Product = {
+        id: '1',
+        name: 'Test Product',
+        price: 100,
+        stock: 10,
+        discounts: [
+          { quantity: 2, rate: 0.1 },
+          { quantity: 5, rate: 0.2 }
+        ]
+      };
+
+      describe('addDiscountToProduct', () => {
+        const newDiscount: Discount = {
+          quantity: 15, rate: 0.3
+        };
+
+        test('상품에 할인율이 추가되어야 합니다.', () => {
+          expect(productUtils.addDiscountToProduct(testProduct, newDiscount).discounts.length).toBe(3);
+        });
+      });
+
+      describe('removeDiscountFromProduct', () => {
+        test('상품에 할인율이 제거되어야 합니다.', () => {
+          expect(productUtils.removeDiscountFromProduct(testProduct, 0).discounts).toEqual([{ quantity: 5, rate: 0.2 }]);
+        });
+      });
+
+      describe('getProductWithId', () => {
+        test('상품에 상품ID를 부여합니다.', () => {
+          const newProduct : Omit<Product, 'id'> = {
+            name: 'New Product',
+            price: 100,
+            stock: 10,
+            discounts: []
+          };
+          expect(productUtils.getProductWithId(newProduct)).haveOwnProperty('id');
         });
       });
     });
