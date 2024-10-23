@@ -5,7 +5,8 @@ import {
   getCartItemByProductId,
   calculateCartTotal,
   updateCartItemQuantity,
-} from './utils/cartUtils';
+  calculateRemainingStock
+} from '../utils/cartUtils';
 
 /**
  * 장바구니를 관리하는 사용자 정의 hook 입니다.
@@ -23,6 +24,7 @@ export const useCart = (): {
     totalDiscount: number;
   };
   selectedCoupon: Coupon | null;
+  getRemainingStock: (product: Product) => number;
 } => {
   /**
    * 장바구니 관련 상태를 관리합니다.
@@ -89,6 +91,16 @@ export const useCart = (): {
     totalDiscount: number;
   } => calculateCartTotal(cart, selectedCoupon);
 
+  /**
+   * 장바구니 내 아이템과 상품을 비교하여 잔여재고를 반환합니다.
+   * @param {Product} product 상품
+   * @returns {number} 상품의 잔여재고
+   */
+  const getRemainingStock = (product : Product) :number => {
+    const cartItem = getCartItemByProductId(cart, product.id);
+    return calculateRemainingStock(product, cartItem);
+  };
+
   return {
     cart,
     addToCart,
@@ -97,5 +109,6 @@ export const useCart = (): {
     applyCoupon,
     calculateTotal,
     selectedCoupon,
+    getRemainingStock,
   };
 };
