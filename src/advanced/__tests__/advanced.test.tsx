@@ -259,6 +259,21 @@ describe('advanced > ', () => {
         });
       });
 
+      describe('addDiscount', () => {
+        test('할인율 목록에 새 할인율을 추가해야 합니다.', () => {
+          const testDiscount: Discount = {
+            quantity: 15, rate: 0.3
+          };
+          expect(discountUtils.addDiscount(discounts, testDiscount).length).toBe(3);
+        });
+      });
+
+      describe('removeDiscount', () => {
+        test('할인율 목록에서 할인율을 제거해야 합니다.', () => {
+          expect(discountUtils.removeDiscount(discounts, 0)).toEqual([{ quantity: 5, rate: 0.2 }]);
+        });
+      });
+
     });
 
     describe('cartUtils', () => {
