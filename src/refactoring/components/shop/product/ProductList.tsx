@@ -1,17 +1,14 @@
 import { memo } from 'react';
-import { Product, CartItem } from '../../../../types.ts';
-import {
-  getCartItemByProductId,
-  getRemainingStock,
-} from '../../../utils/cartUtils.ts';
+import { Product } from '../../../../types.ts';
 import { getMaxDiscount } from '../../../utils/discountUtils.ts';
 
 // 상품 목록
 export const ProductList: React.FC<{
   products: Product[];
-  cart: CartItem[];
   addToCart: (product: Product) => void;
-}> = memo(({ products, cart, addToCart }) => {
+  getRemainingStock: (product: Product) => number;
+}> = memo(({ products, addToCart, getRemainingStock }) => {
+
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 목록</h2>
@@ -20,8 +17,8 @@ export const ProductList: React.FC<{
           <ProductDetail
             key={product.id}
             product={product}
-            cartItem={getCartItemByProductId(cart, product.id)}
             addToCart={addToCart}
+            getRemainingStock={getRemainingStock}
           />
         ))}
       </div>
@@ -32,11 +29,11 @@ export const ProductList: React.FC<{
 // 상품 상세
 const ProductDetail: React.FC<{
   product: Product;
-  cartItem: CartItem | undefined;
   addToCart: (product: Product) => void;
-}> = ({ product, cartItem, addToCart }) => {
+  getRemainingStock: (product: Product) => number;
+}> = ({ product, addToCart, getRemainingStock }) => {
   const { id, name, price, discounts } = product;
-  const remainingStock = getRemainingStock(product, cartItem);
+  const remainingStock = getRemainingStock(product);
   const hasStock = remainingStock > 0;
   const hasDiscount = !!discounts;
 
