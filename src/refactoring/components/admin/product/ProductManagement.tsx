@@ -11,7 +11,9 @@ export const ProductManagement: React.FC<{
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">상품 관리</h2>
+      {/* 새 상품 */}
       <NewProduct onProductAdd={onProductAdd} />
+      {/* 상품 목록 */}
       <ProductList products={products} onProductUpdate={onProductUpdate} />
     </div>
   );

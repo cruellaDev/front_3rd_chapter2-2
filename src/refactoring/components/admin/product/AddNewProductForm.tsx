@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { getProductWithId } from '../../../utils/productUtils.ts';
 
@@ -9,22 +9,24 @@ const initialProduct: Omit<Product, 'id'> = {
   discounts: [],
 };
 
-// 신규 상품 추가 폼
+// 새 상품 추가 폼
 export const AddNewProductForm: React.FC<{
   onProductAdd: (newProduct: Product) => void;
-  toggleAddNewProductForm: () => void;
-}> = ({ onProductAdd, toggleAddNewProductForm }) => {
+  onFormToggle: () => void;
+}> = memo(({ onProductAdd, onFormToggle }) => {
   const [newProduct, setNewProduct] =
     useState<Omit<Product, 'id'>>(initialProduct);
 
-  const handleAddNewProduct = () => {
+  // 이벤트 핸들러 - 상품 추가
+  const handleProductAdd = () => {
     const productWithId = getProductWithId(newProduct);
     onProductAdd(productWithId);
     setNewProduct({ ...initialProduct });
-    toggleAddNewProductForm();
+    onFormToggle();
   };
 
-  const handleEditProductName = (
+  // 이벤트 핸들러 - 상품명 변경
+  const handleProductNameUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setNewProduct((prevProduct) => ({
@@ -33,7 +35,8 @@ export const AddNewProductForm: React.FC<{
     }));
   };
 
-  const handleEditProductPrice = (
+  // 이벤트 핸들러 - 상품 가격 변경
+  const handleProductPriceUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setNewProduct((prevProduct) => ({
@@ -42,7 +45,8 @@ export const AddNewProductForm: React.FC<{
     }));
   };
 
-  const handleEditProductStock = (
+  // 이벤트 핸들러 - 상품 재고 변경
+  const handleProductStockUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setNewProduct((prevProduct) => ({
@@ -65,7 +69,7 @@ export const AddNewProductForm: React.FC<{
           id="productName"
           type="text"
           value={newProduct.name}
-          onChange={handleEditProductName}
+          onChange={handleProductNameUpdate}
           className="w-full p-2 border rounded"
         />
       </div>
@@ -80,7 +84,7 @@ export const AddNewProductForm: React.FC<{
           id="productPrice"
           type="number"
           value={newProduct.price}
-          onChange={handleEditProductPrice}
+          onChange={handleProductPriceUpdate}
           className="w-full p-2 border rounded"
         />
       </div>
@@ -95,16 +99,16 @@ export const AddNewProductForm: React.FC<{
           id="productStock"
           type="number"
           value={newProduct.stock}
-          onChange={handleEditProductStock}
+          onChange={handleProductStockUpdate}
           className="w-full p-2 border rounded"
         />
       </div>
       <button
-        onClick={handleAddNewProduct}
+        onClick={handleProductAdd}
         className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
       >
         추가
       </button>
     </div>
   );
-};
+});

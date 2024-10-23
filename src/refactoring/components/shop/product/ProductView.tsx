@@ -1,20 +1,20 @@
 import { Product } from '../../../../types.ts';
 import { getMaxDiscount } from '../../../utils/discountUtils.ts';
 
-// 상품 상세
-export const ProductDetail: React.FC<{
+// 상품
+export const ProductView: React.FC<{
   product: Product;
-  addToCart: (product: Product) => void;
+  onCartItemAdd: (product: Product) => void;
   getRemainingStock: (product: Product) => number;
-}> = ({ product, addToCart, getRemainingStock }) => {
+}> = ({ product, onCartItemAdd, getRemainingStock }) => {
 
   const { id, name, price, discounts } = product;
   const remainingStock = getRemainingStock(product);
   const hasStock = remainingStock > 0;
   const hasDiscount = !!discounts;
 
-  const handleAddCartItem = () => {
-    addToCart(product)
+  const handleCartItemAdd = () => {
+    onCartItemAdd(product)
   };
 
   return (
@@ -47,7 +47,7 @@ export const ProductDetail: React.FC<{
         </ul>
       )}
       <button
-        onClick={handleAddCartItem}
+        onClick={handleCartItemAdd}
         className={`w-full px-3 py-1 rounded ${
           hasStock
             ? 'bg-blue-500 text-white hover:bg-blue-600'

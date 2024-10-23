@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { Product, Discount } from '../../../../types.ts';
 import {
-  addDiscountToProduct as addDiscount,
-  removeDiscountFromProduct as removeDiscount,
+  addDiscountToProduct,
+  removeDiscountFromProduct,
 } from '../../../utils/productUtils.ts';
-import { DiscountInfo } from './discount/DiscountInfo';
+import { DiscountManagement } from './discount/DiscountManagement';
 
 // 상품 수정 폼
 export const ProductEditForm: React.FC<{
   product: Product;
   onProductUpdate: (updatedProduct: Product) => void;
-  completeProductEdit: (updatedProduct: Product) => void;
-}> = ({ product, onProductUpdate, completeProductEdit }) => {
+  onProductEditComplete: (updatedProduct: Product) => void;
+}> = ({ product, onProductUpdate, onProductEditComplete }) => {
   const [editingProduct, setEditingProduct] = useState<Product>({ ...product });
 
-  // 새로운 핸들러 함수 추가
+  // 이벤트 핸들러 - 상품명 변경
   const handleProductNameUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -24,7 +24,7 @@ export const ProductEditForm: React.FC<{
     }));
   };
 
-  // 새로운 핸들러 함수 추가
+  // 이벤트 핸들러 - 상품 가격 변경
   const handlePriceUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
@@ -32,7 +32,7 @@ export const ProductEditForm: React.FC<{
     }));
   };
 
-  // 새로운 핸들러 함수 추가
+  // 이벤트 핸들러 - 상품 재고 변경
   const handleStockUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
@@ -40,19 +40,21 @@ export const ProductEditForm: React.FC<{
     }));
   };
 
-  // 수정 완료 핸들러 함수 추가
-  const handleEditComplete = () => {
-    completeProductEdit(editingProduct);
+  // 이벤트 핸들러 - 상품 수정 완료
+  const handleProductEditComplete = () => {
+    onProductEditComplete(editingProduct);
   };
 
-  const addDiscountToProduct= (newDiscount: Discount) => {
-    onProductUpdate(addDiscount(product, newDiscount));
-    setEditingProduct(addDiscount(editingProduct, newDiscount));
+  // 사용자 함수 - 할인 추가
+  const addDiscount = (newDiscount: Discount) => {
+    onProductUpdate(addDiscountToProduct(product, newDiscount));
+    setEditingProduct(addDiscountToProduct(editingProduct, newDiscount));
   };
 
-  const removeDiscountFromProduct = (discountIndex: number) => {
-    onProductUpdate(removeDiscount(product, discountIndex));
-    setEditingProduct(removeDiscount(editingProduct, discountIndex));
+  // 사용자 함수 - 할인 제거
+  const removeDiscount = (discountIndex: number) => {
+    onProductUpdate(removeDiscountFromProduct(product, discountIndex));
+    setEditingProduct(removeDiscountFromProduct(editingProduct, discountIndex));
   };
 
   return (
@@ -85,13 +87,13 @@ export const ProductEditForm: React.FC<{
         />
       </div>
       {/* 할인 정보 수정 부분 */}
-      <DiscountInfo
+      <DiscountManagement
         discounts={product.discounts}
-        addDiscountToProduct={addDiscountToProduct}
-        removeDiscountFromProduct={removeDiscountFromProduct}
+        onDiscountAdd={addDiscount}
+        onDiscountRemove={removeDiscount}
       />
       <button
-        onClick={handleEditComplete}
+        onClick={handleProductEditComplete}
         className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 mt-2"
       >
         수정 완료

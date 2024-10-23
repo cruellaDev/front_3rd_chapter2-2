@@ -1,7 +1,7 @@
 import { Discount } from '../../../../../types.ts';
 
 // 할인 전시
-export const DiscountDisplay: React.FC<{
+export const DiscountDetailView: React.FC<{
   discount: Discount;
 }> = ({ discount }) => {
   return (

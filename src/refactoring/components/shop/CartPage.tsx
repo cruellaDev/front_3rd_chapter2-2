@@ -1,6 +1,6 @@
 import { Coupon, Product } from '../../../types.ts';
 import { useCart } from '../../hooks/index.ts';
-import { CartDetails, ProductList } from './index.ts';
+import { Cart, ProductList } from './index.ts';
 
 interface Props {
   products: Product[];
@@ -25,15 +25,15 @@ export const CartPage = ({ products, coupons }: Props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ProductList
           products={products}
-          addToCart={addToCart}
+          onCartItemAdd={addToCart}
           getRemainingStock={getRemainingStock}
         />
-        <CartDetails
+        <Cart
           cart={cart}
           coupons={coupons}
-          removeFromCart={removeFromCart}
-          updateQuantity={updateQuantity}
-          applyCoupon={applyCoupon}
+          onCartItemRemove={removeFromCart}
+          onCartItemQuantityUpdate={updateQuantity}
+          onCouponApply={applyCoupon}
           calculateTotal={calculateTotal}
           selectedCoupon={selectedCoupon}
         />

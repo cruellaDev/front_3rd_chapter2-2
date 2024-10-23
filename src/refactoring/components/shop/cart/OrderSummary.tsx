@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 // 주문 요약
 export const OrderSummary: React.FC<{
   calculateTotal: () => {
@@ -7,7 +5,7 @@ export const OrderSummary: React.FC<{
     totalAfterDiscount: number;
     totalDiscount: number;
   };
-}> = memo(({ calculateTotal }) => {
+}> = ({ calculateTotal }) => {
   const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } =
     calculateTotal();
 
@@ -25,4 +23,4 @@ export const OrderSummary: React.FC<{
       </div>
     </div>
   );
-});
+};

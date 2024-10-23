@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Discount } from '../../../../../types.ts';
 
 const initialDiscount: Discount = {
@@ -8,10 +8,11 @@ const initialDiscount: Discount = {
 
 // 신규 할인 추가 폼
 export const AddNewDiscountForm: React.FC<{
-  addDiscountToProduct: (discount: Discount) => void;
-}> = ({ addDiscountToProduct }) => {
+  onDiscountAdd: (discount: Discount) => void;
+}> = memo(({ onDiscountAdd }) => {
   const [newDiscount, setNewDiscount] = useState<Discount>(initialDiscount);
 
+  // 이벤트 핸들러 - 수량 변경
   const handleQuantityUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDiscount((prevDiscount) => ({
       ...prevDiscount,
@@ -19,6 +20,7 @@ export const AddNewDiscountForm: React.FC<{
     }));
   };
 
+  // 이벤트 핸들러 - 할인율 변경
   const handleRateUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDiscount((prevDiscount) => ({
       ...prevDiscount,
@@ -26,8 +28,9 @@ export const AddNewDiscountForm: React.FC<{
     }));
   };
 
-  const handleAddDiscount = () => {
-    addDiscountToProduct(newDiscount);
+  // 이벤트 핸들러 - 할인 추가
+  const handleDiscountAdd = () => {
+    onDiscountAdd(newDiscount);
     setNewDiscount({ ...initialDiscount });
   };
 
@@ -48,11 +51,11 @@ export const AddNewDiscountForm: React.FC<{
         className="w-1/3 p-2 border rounded"
       />
       <button
-        onClick={handleAddDiscount}
+        onClick={handleDiscountAdd}
         className="w-1/3 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
       >
         할인 추가
       </button>
     </div>
   );
-};
+});

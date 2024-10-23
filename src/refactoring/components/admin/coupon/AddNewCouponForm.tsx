@@ -14,16 +14,38 @@ export const AddNewCouponForm: React.FC<{
 }> = memo(({ onCouponAdd }) => {
   const [newCoupon, setNewCoupon] = useState<Coupon>(initialCoupon);
 
-  const handleEditCouponFormInput = (
+  // 이벤트 핸들러 - 쿠폰명 변경
+  const handleCouponNameUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setNewCoupon((prevCoupon) => ({
       ...prevCoupon,
-      [event.target.name]: event.target.value,
+      name: event.target.value,
     }));
   };
 
-  const handleEditCouponDiscountType = (
+  // 이벤트 핸들러 - 쿠폰 코드 변경
+  const handleCouponCodeUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setNewCoupon((prevCoupon) => ({
+      ...prevCoupon,
+      code: event.target.value,
+    }));
+  };
+
+  // 이벤트 핸들러 - 쿠폰 할인값 변경
+  const handleCouponDiscountValueUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setNewCoupon((prevCoupon) => ({
+      ...prevCoupon,
+      discountValue: parseInt(event.target.value),
+    }));
+  };
+
+  // 이벤트 핸들러 - 쿠폰 할인 기준 변경
+  const handleCouponDiscountTypeUpdate = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     setNewCoupon((prevCoupon) => ({
@@ -32,7 +54,8 @@ export const AddNewCouponForm: React.FC<{
     }));
   };
 
-  const handleAddCoupon = () => {
+  // 이벤트 핸들러 - 쿠폰 추가
+  const handleCouponAdd = () => {
     onCouponAdd(newCoupon);
     setNewCoupon({ ...initialCoupon });
   };
@@ -42,24 +65,21 @@ export const AddNewCouponForm: React.FC<{
       <input
         type="text"
         placeholder="쿠폰 이름"
-        name="name"
         value={newCoupon.name}
-        onChange={handleEditCouponFormInput}
+        onChange={handleCouponNameUpdate}
         className="w-full p-2 border rounded"
       />
       <input
         type="text"
         placeholder="쿠폰 코드"
-        name="code"
         value={newCoupon.code}
-        onChange={handleEditCouponFormInput}
+        onChange={handleCouponCodeUpdate}
         className="w-full p-2 border rounded"
       />
       <div className="flex gap-2">
         <select
-          name="discountType"
           value={newCoupon.discountType}
-          onChange={handleEditCouponDiscountType}
+          onChange={handleCouponDiscountTypeUpdate}
           className="w-full p-2 border rounded"
         >
           <option value="amount">금액(원)</option>
@@ -70,12 +90,12 @@ export const AddNewCouponForm: React.FC<{
           placeholder="할인 값"
           name="discountValue"
           value={newCoupon.discountValue}
-          onChange={handleEditCouponFormInput}
+          onChange={handleCouponDiscountValueUpdate}
           className="w-full p-2 border rounded"
         />
       </div>
       <button
-        onClick={handleAddCoupon}
+        onClick={handleCouponAdd}
         className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600"
       >
         쿠폰 추가

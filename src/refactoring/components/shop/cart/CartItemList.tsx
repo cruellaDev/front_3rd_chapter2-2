@@ -1,21 +1,21 @@
 import { memo } from 'react';
 import { CartItem } from '../../../../types.ts';
-import { CartItemDetail } from './CartItemDetail.tsx';
+import { CartItemView } from './CartItemView';
 
 // 장바구니 아이템 목록
 export const CartItemList: React.FC<{
   cart: CartItem[];
-  updateQuantity: (productId: string, newQuantity: number) => void;
-  removeFromCart: (productId: string) => void;
-}> = memo(({ cart, updateQuantity, removeFromCart }) => {
+  onCartItemQuantityUpdate: (productId: string, newQuantity: number) => void;
+  onCartItemRemove: (productId: string) => void;
+}> = memo(({ cart, onCartItemQuantityUpdate, onCartItemRemove }) => {
   return (
     <div className="space-y-2">
       {cart.map((cartItem) => (
-        <CartItemDetail
+        <CartItemView
           key={cartItem.product.id}
           cartItem={cartItem}
-          updateQuantity={updateQuantity}
-          removeFromCart={removeFromCart}
+          onCartItemQuantityUpdate={onCartItemQuantityUpdate}
+          onCartItemRemove={onCartItemRemove}
         />
       ))}
     </div>
