@@ -31,3 +31,19 @@ export const getMaxDiscountByQuantity = (
         0
       );
 };
+
+/**
+ * 할인율 목록에 새 할인율을 추가합니다.
+ * @param {Discount[]} discounts 할인율 목록
+ * @param {Discount} newDiscount 새 할인율
+ * @returns {Discount[]} 변경된 할인율 목록
+ */
+export const addDiscount = (discounts : Discount[], newDiscount: Discount) : Discount[] => discounts.concat(newDiscount);
+
+/**
+ * 할인율 목록에서 특정 할인율을 제거합니다.
+ * @param {Discount[]} discounts 할인율 목록
+ * @param {number} index 할인율 인덱스
+ * @returns {Discount[]} 변경된 할인율 목록
+ */
+export const removeDiscount = (discounts: Discount[], index: number) : Discount[] => discounts.filter((_, i) => i !== index);
