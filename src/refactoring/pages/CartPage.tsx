@@ -1,6 +1,6 @@
 import { Coupon, Product } from '../../types.ts';
-import { useCart } from '../hooks/index.ts';
-import { Cart, ProductList } from '../components/shop/index.ts';
+import { useCart } from '../hooks';
+import { CartDetail, ProductList } from '../components/shop';
 
 interface Props {
   products: Product[];
@@ -28,7 +28,7 @@ export const CartPage = ({ products, coupons }: Props) => {
           onCartItemAdd={addToCart}
           getRemainingStock={getRemainingStock}
         />
-        <Cart
+        <CartDetail
           cart={cart}
           coupons={coupons}
           onCartItemRemove={removeFromCart}

@@ -1,10 +1,10 @@
 import { memo } from 'react';
 import { Coupon } from '../../../../types.ts';
-import { CouponSelection } from './CouponSelection.tsx';
-import { SelectedCouponView } from './SelectedCouponView.tsx';
+import { CouponComboBox } from './CouponComboBox';
+import { SelectedCouponView } from './SelectedCouponView';
 
 // 쿠폰 적용
-export const CouponRedemption: React.FC<{
+export const ApplyCoupon: React.FC<{
   coupons: Coupon[];
   onCouponApply: (coupon: Coupon) => void;
   selectedCoupon: Coupon | null;
@@ -13,7 +13,7 @@ export const CouponRedemption: React.FC<{
   return (
     <div className="mt-6 bg-white p-4 rounded shadow">
       <h2 className="text-2xl font-semibold mb-2">쿠폰 적용</h2>
-      <CouponSelection coupons={coupons} onCouponApply={onCouponApply} />
+      <CouponComboBox coupons={coupons} onCouponApply={onCouponApply} />
       <SelectedCouponView selectedCoupon={selectedCoupon} />
     </div>
   );

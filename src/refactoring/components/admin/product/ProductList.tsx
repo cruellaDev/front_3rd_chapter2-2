@@ -1,5 +1,5 @@
 import { Product } from '../../../../types.ts';
-import { ProductView } from './ProductView';
+import { ProductDetail } from './ProductDetail';
 
 // 상품 목록
 export const ProductList: React.FC<{
@@ -9,7 +9,7 @@ export const ProductList: React.FC<{
   return (
     <div className="space-y-2">
       {products.map((product, index) => (
-        <ProductView
+        <ProductDetail
           key={product.id}
           product={product}
           index={index}

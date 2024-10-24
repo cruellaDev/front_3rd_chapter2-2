@@ -1,7 +1,7 @@
 import { Coupon } from '../../../../types.ts';
 
 // 쿠폰 선택
-export const CouponSelection: React.FC<{
+export const CouponComboBox: React.FC<{
   coupons: Coupon[];
   onCouponApply: (coupon: Coupon) => void;
 }> = ({ coupons, onCouponApply }) => {

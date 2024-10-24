@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { ProductAccordion } from './ProductAccordian';
 
-export const ProductView: React.FC<{
+export const ProductDetail: React.FC<{
   product: Product;
   index: number;
   onProductUpdate: (updatedProduct: Product) => void;
