@@ -3,30 +3,21 @@ import { CartPage } from './components/shop/CartPage.tsx';
 import { AdminPage } from './components/admin/AdminPage.tsx';
 import { useCoupons, useProducts } from "./hooks";
 import { initialProducts, initialCoupons } from './data';
+import { Navigation } from './components/ui';
 
 const App = () => {
   const { products, updateProduct, addProduct } = useProducts(initialProducts);
   const { coupons, addCoupon } = useCoupons(initialCoupons);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // 이벤트 핸들러 - 페이지 이동
-  const handlePageToAdminOrCart = () => {
+  // 사용자 정의 함수 - 페이지 이동
+  const redirectPageToAdminOrCart = () => {
     setIsAdmin(!isAdmin)
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <nav className="bg-blue-600 text-white p-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">쇼핑몰 관리 시스템</h1>
-          <button
-            onClick={handlePageToAdminOrCart}
-            className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-blue-100"
-          >
-            {isAdmin ? '장바구니 페이지로' : '관리자 페이지로'}
-          </button>
-        </div>
-      </nav>
+      <Navigation isAdmin={isAdmin} onPageRedirectTo={redirectPageToAdminOrCart} />
       <main className="container mx-auto mt-6">
         {isAdmin ? (
           <AdminPage
