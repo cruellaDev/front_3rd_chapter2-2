@@ -5,7 +5,7 @@ import {
   removeDiscountFromProduct,
 } from '../../../utils/productUtils.ts';
 import { DiscountManagement } from './discount/DiscountManagement';
-import { Button } from '../../ui';
+import { Button, NumberInput, TextInput } from '../../ui';
 
 // 상품 수정 폼
 export const ProductEditForm: React.FC<{
@@ -26,7 +26,9 @@ export const ProductEditForm: React.FC<{
   };
 
   // 이벤트 핸들러 - 상품 가격 변경
-  const handlePriceUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProductPriceUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
       price: Math.max(parseInt(event.target.value), 0),
@@ -34,7 +36,9 @@ export const ProductEditForm: React.FC<{
   };
 
   // 이벤트 핸들러 - 상품 재고 변경
-  const handleStockUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProductStockUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
       stock: Math.max(parseInt(event.target.value), 0),
@@ -63,30 +67,32 @@ export const ProductEditForm: React.FC<{
   return (
     <div>
       <div className="mb-4">
-        <label className="block mb-1">상품명: </label>
-        <input
-          type="text"
+        <TextInput
+          label={'상품명'}
+          labelClassName={'block mb-1'}
           value={editingProduct.name}
           onChange={handleProductNameUpdate}
-          className="w-full p-2 border rounded"
+          className={'w-full p-2 border rounded'}
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1">가격: </label>
-        <input
-          type="number"
+        <NumberInput
+          label={'가격'}
+          labelClassName={'block mb-1'}
           value={editingProduct.price}
-          onChange={handlePriceUpdate}
-          className="w-full p-2 border rounded"
+          onChange={handleProductPriceUpdate}
+          className={'w-full p-2 border rounded'}
+          min={0}
         />
       </div>
       <div className="mb-4">
-        <label className="block mb-1">재고: </label>
-        <input
-          type="number"
+        <NumberInput
+          label={'재고'}
+          labelClassName={'block mb-1'}
           value={editingProduct.stock}
-          onChange={handleStockUpdate}
-          className="w-full p-2 border rounded"
+          onChange={handleProductStockUpdate}
+          className={'w-full p-2 border rounded'}
+          min={0}
         />
       </div>
       {/* 할인 정보 수정 부분 */}

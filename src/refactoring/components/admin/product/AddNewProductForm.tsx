@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { getProductWithId } from '../../../utils/productUtils.ts';
-import { Button } from '../../ui';
+import { Button, NumberInput, TextInput } from '../../ui';
 
 const initialProduct: Omit<Product, 'id'> = {
   name: '',
@@ -62,48 +62,35 @@ export const AddNewProductForm: React.FC<{
     <div className="bg-white p-4 rounded shadow mb-4">
       <h3 className="text-xl font-semibold mb-2">새 상품 추가</h3>
       <div className="mb-2">
-        <label
-          htmlFor="productName"
-          className="block text-sm font-medium text-gray-700"
-        >
-          상품명
-        </label>
-        <input
-          id="productName"
-          type="text"
+        <TextInput
+          label={'상품명'}
+          labelClassName={'block text-sm font-medium text-gray-700'}
+          id={'productName'}
           value={newProduct.name}
           onChange={handleProductNameUpdate}
-          className="w-full p-2 border rounded"
+          className={'w-full p-2 border rounded'}
         />
       </div>
       <div className="mb-2">
-        <label
-          htmlFor="productPrice"
-          className="block text-sm font-medium text-gray-700"
-        >
-          가격
-        </label>
-        <input
-          id="productPrice"
-          type="number"
+        <NumberInput
+          label={'가격'}
+          labelClassName={'block text-sm font-medium text-gray-700'}
+          id={'productPrice'}
           value={newProduct.price}
           onChange={handleProductPriceUpdate}
-          className="w-full p-2 border rounded"
+          className={'w-full p-2 border rounded'}
+          min={0}
         />
       </div>
       <div className="mb-2">
-        <label
-          htmlFor="productStock"
-          className="block text-sm font-medium text-gray-700"
-        >
-          재고
-        </label>
-        <input
-          id="productStock"
-          type="number"
+        <NumberInput
+          label={'재고'}
+          labelClassName={'block text-sm font-medium text-gray-700'}
+          id={'productStock'}
           value={newProduct.stock}
           onChange={handleProductStockUpdate}
-          className="w-full p-2 border rounded"
+          className={'w-full p-2 border rounded'}
+          min={0}
         />
       </div>
       <Button

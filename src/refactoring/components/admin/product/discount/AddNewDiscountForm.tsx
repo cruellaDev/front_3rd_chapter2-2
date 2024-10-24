@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Discount } from '../../../../../types.ts';
-import { Button } from '../../../ui';
+import { Button, NumberInput } from '../../../ui';
 
 const initialDiscount: Discount = {
   quantity: 0,
@@ -39,19 +39,20 @@ export const AddNewDiscountForm: React.FC<{
 
   return (
     <div className="flex space-x-2">
-      <input
-        type="number"
-        placeholder="수량"
+      <NumberInput
+        placeholder={'수량'}
         value={newDiscount.quantity}
         onChange={handleQuantityUpdate}
-        className="w-1/3 p-2 border rounded"
+        className={'w-1/3 p-2 border rounded'}
+        min={0}
       />
-      <input
-        type="number"
-        placeholder="할인율 (%)"
+      <NumberInput
+        placeholder={'할인율 (%)'}
         value={newDiscount.rate * 100}
         onChange={handleRateUpdate}
-        className="w-1/3 p-2 border rounded"
+        className={'w-1/3 p-2 border rounded'}
+        min={0}
+        max={100}
       />
       <Button
         title={'할인 추가'}

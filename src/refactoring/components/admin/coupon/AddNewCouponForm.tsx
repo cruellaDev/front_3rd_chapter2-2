@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Coupon } from '../../../../types.ts';
-import { Button } from '../../ui';
+import { Button, NumberInput, TextInput } from '../../ui';
 
 const initialCoupon: Coupon = {
   name: '',
@@ -69,19 +69,17 @@ export const AddNewCouponForm: React.FC<{
 
   return (
     <div className="space-y-2 mb-4">
-      <input
-        type="text"
-        placeholder="쿠폰 이름"
+      <TextInput
+        placeholder={'쿠폰 이름'}
         value={newCoupon.name}
         onChange={handleCouponNameUpdate}
-        className="w-full p-2 border rounded"
+        className={'w-full p-2 border rounded'}
       />
-      <input
-        type="text"
-        placeholder="쿠폰 코드"
+      <TextInput
+        placeholder={'쿠폰 코드'}
         value={newCoupon.code}
         onChange={handleCouponCodeUpdate}
-        className="w-full p-2 border rounded"
+        className={'w-full p-2 border rounded'}
       />
       <div className="flex gap-2">
         <select
@@ -92,13 +90,13 @@ export const AddNewCouponForm: React.FC<{
           <option value="amount">금액(원)</option>
           <option value="percentage">할인율(%)</option>
         </select>
-        <input
-          type="number"
-          placeholder="할인 값"
-          name="discountValue"
+        <NumberInput
+          placeholder={'할인 값'}
           value={newCoupon.discountValue}
           onChange={handleCouponDiscountValueUpdate}
-          className="w-full p-2 border rounded"
+          className={'w-full p-2 border rounded'}
+          min={0}
+          max={newCoupon.discountType === 'percentage' ? 100 : Infinity}
         />
       </div>
       <Button
