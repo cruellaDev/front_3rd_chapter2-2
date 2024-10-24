@@ -1,5 +1,6 @@
 import { Product } from '../../../../types.ts';
 import { getMaxDiscount } from '../../../utils/discountUtils.ts';
+import { Button } from '../../ui';
 
 // 상품
 export const ProductView: React.FC<{
@@ -7,14 +8,13 @@ export const ProductView: React.FC<{
   onCartItemAdd: (product: Product) => void;
   getRemainingStock: (product: Product) => number;
 }> = ({ product, onCartItemAdd, getRemainingStock }) => {
-
   const { id, name, price, discounts } = product;
   const remainingStock = getRemainingStock(product);
   const hasStock = remainingStock > 0;
   const hasDiscount = !!discounts;
 
   const handleCartItemAdd = () => {
-    onCartItemAdd(product)
+    onCartItemAdd(product);
   };
 
   return (
@@ -46,17 +46,13 @@ export const ProductView: React.FC<{
           ))}
         </ul>
       )}
-      <button
-        onClick={handleCartItemAdd}
-        className={`w-full px-3 py-1 rounded ${
-          hasStock
-            ? 'bg-blue-500 text-white hover:bg-blue-600'
-            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-        }`}
+      <Button
+        title={hasStock ? '장바구니에 추가' : '품절'}
+        variant={hasStock ? 'primary' : 'empty'}
+        className={`${hasStock ? '' : 'bg-gray-300 text-gray-500'} w-full px-3 py-1`}
         disabled={!hasStock}
-      >
-        {hasStock ? '장바구니에 추가' : '품절'}
-      </button>
+        onClick={handleCartItemAdd}
+      />
     </div>
   );
 };

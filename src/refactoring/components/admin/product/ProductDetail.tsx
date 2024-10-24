@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { ProductAccordion } from './ProductAccordian';
+import { Button } from '../../ui';
 
 export const ProductDetail: React.FC<{
   product: Product;
@@ -8,7 +9,8 @@ export const ProductDetail: React.FC<{
   onProductUpdate: (updatedProduct: Product) => void;
 }> = ({ product, index, onProductUpdate }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isProductEditFormEditing, setIsProductEditFormEditing] = useState(false);
+  const [isProductEditFormEditing, setIsProductEditFormEditing] =
+    useState(false);
 
   // 이벤트 핸들러 - 상품 아코디언 토글
   const handleProductAccordionToggle = () => {
@@ -31,13 +33,12 @@ export const ProductDetail: React.FC<{
       data-testid={`product-${index + 1}`}
       className="bg-white p-4 rounded shadow"
     >
-      <button
-        data-testid="toggle-button"
+      <Button
+        title={`${product.name} - ${product.price}원 (재고: ${product.stock})`}
         onClick={handleProductAccordionToggle}
-        className="w-full text-left font-semibold"
-      >
-        {product.name} - {product.price}원 (재고: {product.stock})
-      </button>
+        className={'w-full text-left font-semibold'}
+        data-testid={"toggle-button"}
+      />
       {isOpen && (
         <ProductAccordion
           product={product}

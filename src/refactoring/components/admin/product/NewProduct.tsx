@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { AddNewProductForm } from './AddNewProductForm';
+import { Button } from '../../ui';
 
 // 새 상품
 export const NewProduct: React.FC<{
@@ -15,12 +16,12 @@ export const NewProduct: React.FC<{
 
   return (
     <>
-      <button
+      <Button
+        title={isEditing ? '취소' : '새 상품 추가'}
+        variant={'success'}
+        className={'px-4 py-2 mb-4'}
         onClick={handleFormToggle}
-        className="bg-green-500 text-white px-4 py-2 rounded mb-4 hover:bg-green-600"
-      >
-        {isEditing ? '취소' : '새 상품 추가'}
-      </button>
+      />
       {isEditing && (
         <AddNewProductForm
           onProductAdd={onProductAdd}

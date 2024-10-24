@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 import { Discount } from '../../../../../types.ts';
+import { Button } from '../../../ui';
 
 const initialDiscount: Discount = {
   quantity: 0,
@@ -50,12 +51,12 @@ export const AddNewDiscountForm: React.FC<{
         onChange={handleRateUpdate}
         className="w-1/3 p-2 border rounded"
       />
-      <button
+      <Button
+        title={'할인 추가'}
+        variant={'primary'}
+        className={'w-1/3 p-2'}
         onClick={handleDiscountAdd}
-        className="w-1/3 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-      >
-        할인 추가
-      </button>
+      />
     </div>
   );
 });

@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { getProductWithId } from '../../../utils/productUtils.ts';
+import { Button } from '../../ui';
 
 const initialProduct: Omit<Product, 'id'> = {
   name: '',
@@ -103,12 +104,12 @@ export const AddNewProductForm: React.FC<{
           className="w-full p-2 border rounded"
         />
       </div>
-      <button
+      <Button
+        title={'추가'}
+        variant={'primary'}
+        className={'w-full p-2'}
         onClick={handleProductAdd}
-        className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-      >
-        추가
-      </button>
+      />
     </div>
   );
 });

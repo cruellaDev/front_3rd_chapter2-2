@@ -1,4 +1,5 @@
 import { Discount } from '../../../../../types';
+import { Button } from '../../../ui';
 import { DiscountDetailView } from '../shared/DiscountDetailView';
 
 // 할인
@@ -7,7 +8,6 @@ export const DiscountView: React.FC<{
   index: number;
   onDiscountRemove: (discountIndex: number) => void;
 }> = ({ discount, index, onDiscountRemove }) => {
-  
   const handleDiscountRemove = (index: number) => {
     onDiscountRemove(index);
   };
@@ -15,12 +15,12 @@ export const DiscountView: React.FC<{
   return (
     <div className="flex justify-between items-center mb-2">
       <DiscountDetailView discount={discount} />
-      <button
+      <Button
+        title={'삭제'}
+        variant={'danger'}
+        className={'px-2 py-1'}
         onClick={() => handleDiscountRemove(index)}
-        className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
-      >
-        삭제
-      </button>
+      />
     </div>
   );
 };

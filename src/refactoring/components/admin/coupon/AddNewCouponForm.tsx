@@ -1,5 +1,6 @@
 import { memo, useState } from 'react';
 import { Coupon } from '../../../../types.ts';
+import { Button } from '../../ui';
 
 const initialCoupon: Coupon = {
   name: '',
@@ -95,12 +96,12 @@ export const AddNewCouponForm: React.FC<{
           className="w-full p-2 border rounded"
         />
       </div>
-      <button
+      <Button
+        title={'쿠폰 추가'}
         onClick={handleCouponAdd}
-        className="w-full bg-green-500 text-white p-2 rounded hover:bg-green-600"
-      >
-        쿠폰 추가
-      </button>
+        variant={'success'}
+        className={'w-full p-2'}
+      />
     </div>
   );
 });

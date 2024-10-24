@@ -1,4 +1,5 @@
 import { Product } from '../../../../types.ts';
+import { Button } from '../../ui';
 import { ProductEditForm } from './ProductEditForm';
 import { DiscountDetailView } from './shared/DiscountDetailView';
 
@@ -9,8 +10,13 @@ export const ProductAccordion: React.FC<{
   onProductUpdate: (updatedProduct: Product) => void;
   onProductEditFormToggle: () => void;
   onProductEditComplete: (updatedProduct: Product) => void;
-}> = ({ product, isEditing, onProductUpdate, onProductEditFormToggle, onProductEditComplete }) => {
-
+}> = ({
+  product,
+  isEditing,
+  onProductUpdate,
+  onProductEditFormToggle,
+  onProductEditComplete,
+}) => {
   return (
     <div className="mt-2">
       {isEditing ? (
@@ -26,13 +32,13 @@ export const ProductAccordion: React.FC<{
               <DiscountDetailView discount={discount} />
             </div>
           ))}
-          <button
-            data-testid="modify-button"
+          <Button
+            title={'수정'}
+            variant={'primary'}
+            className={'px-2 py-1 mt-2'}
             onClick={onProductEditFormToggle}
-            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mt-2"
-          >
-            수정
-          </button>
+            data-testid={'modify-button'}
+          />
         </div>
       )}
     </div>

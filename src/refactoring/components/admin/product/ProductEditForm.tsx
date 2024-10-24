@@ -5,6 +5,7 @@ import {
   removeDiscountFromProduct,
 } from '../../../utils/productUtils.ts';
 import { DiscountManagement } from './discount/DiscountManagement';
+import { Button } from '../../ui';
 
 // 상품 수정 폼
 export const ProductEditForm: React.FC<{
@@ -92,12 +93,12 @@ export const ProductEditForm: React.FC<{
         onDiscountAdd={addDiscount}
         onDiscountRemove={removeDiscount}
       />
-      <button
+      <Button
+        title={'수정 완료'}
+        variant={'success'}
+        className={'px-2 py-1 mt-2'}
         onClick={handleProductEditComplete}
-        className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 mt-2"
-      >
-        수정 완료
-      </button>
+      />
     </div>
   );
 };
