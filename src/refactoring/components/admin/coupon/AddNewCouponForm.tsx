@@ -56,6 +56,7 @@ export const AddNewCouponForm: React.FC<{
 
   // 이벤트 핸들러 - 쿠폰 추가
   const handleCouponAdd = () => {
+    if (!newCoupon.name || !newCoupon.code || !newCoupon.discountValue) return;
     onCouponAdd(newCoupon);
     setNewCoupon({ ...initialCoupon });
   };
