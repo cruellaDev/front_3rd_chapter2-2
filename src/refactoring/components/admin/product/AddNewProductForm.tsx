@@ -20,6 +20,8 @@ export const AddNewProductForm: React.FC<{
 
   // 이벤트 핸들러 - 상품 추가
   const handleProductAdd = () => {
+    if (!newProduct.name || !newProduct.stock)
+      return alert('상품명과 재고는 필수 입력 항목입니다.');
     const productWithId = getProductWithId(newProduct);
     onProductAdd(productWithId);
     setNewProduct({ ...initialProduct });
@@ -42,7 +44,7 @@ export const AddNewProductForm: React.FC<{
   ): void => {
     setNewProduct((prevProduct) => ({
       ...prevProduct,
-      price: parseInt(event.target.value),
+      price: Math.max(parseInt(event.target.value), 0),
     }));
   };
 
@@ -52,7 +54,7 @@ export const AddNewProductForm: React.FC<{
   ): void => {
     setNewProduct((prevProduct) => ({
       ...prevProduct,
-      stock: parseInt(event.target.value),
+      stock: Math.max(parseInt(event.target.value), 0),
     }));
   };
 

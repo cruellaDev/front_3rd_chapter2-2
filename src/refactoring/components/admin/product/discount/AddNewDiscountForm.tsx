@@ -17,7 +17,7 @@ export const AddNewDiscountForm: React.FC<{
   const handleQuantityUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDiscount((prevDiscount) => ({
       ...prevDiscount,
-      quantity: parseInt(event.target.value),
+      quantity: Math.max(parseInt(event.target.value), 0),
     }));
   };
 
@@ -25,12 +25,14 @@ export const AddNewDiscountForm: React.FC<{
   const handleRateUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewDiscount((prevDiscount) => ({
       ...prevDiscount,
-      rate: parseInt(event.target.value) / 100,
+      rate: Math.max(Math.min(parseInt(event.target.value), 100) / 100, 0),
     }));
   };
 
   // 이벤트 핸들러 - 할인 추가
   const handleDiscountAdd = () => {
+    if (!newDiscount.quantity || !newDiscount.rate)
+      return alert('할인 정보가 입력되지 않았습니다.');
     onDiscountAdd(newDiscount);
     setNewDiscount({ ...initialDiscount });
   };

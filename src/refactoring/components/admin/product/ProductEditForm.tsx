@@ -29,7 +29,7 @@ export const ProductEditForm: React.FC<{
   const handlePriceUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
-      price: parseInt(event.target.value),
+      price: Math.max(parseInt(event.target.value), 0),
     }));
   };
 
@@ -37,12 +37,14 @@ export const ProductEditForm: React.FC<{
   const handleStockUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditingProduct((prevProduct) => ({
       ...prevProduct,
-      stock: parseInt(event.target.value),
+      stock: Math.max(parseInt(event.target.value), 0),
     }));
   };
 
   // 이벤트 핸들러 - 상품 수정 완료
   const handleProductEditComplete = () => {
+    if (!editingProduct.name || !editingProduct.stock)
+      return alert('상품명과 재고는 필수 입력 항목입니다.');
     onProductEditComplete(editingProduct);
   };
 

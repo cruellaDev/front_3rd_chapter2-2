@@ -39,9 +39,13 @@ export const AddNewCouponForm: React.FC<{
   const handleCouponDiscountValueUpdate = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
+    const value = parseInt(event.target.value) || 0;
     setNewCoupon((prevCoupon) => ({
       ...prevCoupon,
-      discountValue: parseInt(event.target.value),
+      discountValue: Math.max(
+        prevCoupon.discountType === 'percentage' ? Math.min(100, value) : value,
+        0
+      ),
     }));
   };
 
@@ -57,7 +61,8 @@ export const AddNewCouponForm: React.FC<{
 
   // 이벤트 핸들러 - 쿠폰 추가
   const handleCouponAdd = () => {
-    if (!newCoupon.name || !newCoupon.code || !newCoupon.discountValue) return;
+    if (!newCoupon.name || !newCoupon.code || !newCoupon.discountValue)
+      return alert('쿠폰 정보가 입력되지 않았습니다');
     onCouponAdd(newCoupon);
     setNewCoupon({ ...initialCoupon });
   };
