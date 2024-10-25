@@ -1,12 +1,9 @@
 import { useCallback, useState } from 'react';
-import { Product } from '../../../../types.ts';
 import { AddNewProductForm } from './AddNewProductForm';
 import { Button } from '../../ui';
 
 // 새 상품
-export const NewProduct: React.FC<{
-  onProductAdd: (newProduct: Product) => void;
-}> = ({ onProductAdd }) => {
+export const NewProduct: React.FC<{}> = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   // 이벤트 핸들러 - 새 상품 추가 폼 토글
@@ -24,7 +21,6 @@ export const NewProduct: React.FC<{
       />
       {isEditing && (
         <AddNewProductForm
-          onProductAdd={onProductAdd}
           onFormToggle={handleFormToggle}
         />
       )}

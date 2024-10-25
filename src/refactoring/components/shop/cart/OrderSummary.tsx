@@ -1,11 +1,8 @@
+import { useCartContext } from "../../../hooks";
+
 // 주문 요약
-export const OrderSummary: React.FC<{
-  calculateTotal: () => {
-    totalBeforeDiscount: number;
-    totalAfterDiscount: number;
-    totalDiscount: number;
-  };
-}> = ({ calculateTotal }) => {
+export const OrderSummary: React.FC<{}> = () => {
+  const { calculateTotal } = useCartContext();
   const { totalBeforeDiscount, totalAfterDiscount, totalDiscount } =
     calculateTotal();
 

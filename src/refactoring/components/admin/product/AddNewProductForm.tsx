@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { getProductWithId } from '../../../utils/productUtils.ts';
 import { Button, NumberInput, TextInput } from '../../ui';
+import { useProductContext } from '../../../hooks';
 
 const initialProduct: Omit<Product, 'id'> = {
   name: '',
@@ -12,9 +13,10 @@ const initialProduct: Omit<Product, 'id'> = {
 
 // 새 상품 추가 폼
 export const AddNewProductForm: React.FC<{
-  onProductAdd: (newProduct: Product) => void;
   onFormToggle: () => void;
-}> = memo(({ onProductAdd, onFormToggle }) => {
+}> = memo(({ onFormToggle }) => {
+  const { onProductAdd } = useProductContext();
+
   const [newProduct, setNewProduct] =
     useState<Omit<Product, 'id'>>(initialProduct);
 

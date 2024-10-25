@@ -1,13 +1,14 @@
 import { getMaxDiscountByQuantity } from '../../../utils/discountUtils.ts';
 import { CartItem } from '../../../../types.ts';
 import { Button } from '../../ui';
+import { useCartContext } from '../../../hooks';
 
 // 장바구니 아이템
 export const CartItemView: React.FC<{
   cartItem: CartItem;
-  onCartItemQuantityUpdate: (productId: string, newQuantity: number) => void;
-  onCartItemRemove: (productId: string) => void;
-}> = ({ cartItem, onCartItemQuantityUpdate, onCartItemRemove }) => {
+}> = ({ cartItem }) => {
+  const { onCartItemQuantityUpdate, onCartItemRemove } = useCartContext();
+  
   // cartItem destructured
   const { product, quantity } = cartItem;
 

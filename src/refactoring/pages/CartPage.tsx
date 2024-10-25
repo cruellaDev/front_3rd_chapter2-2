@@ -1,23 +1,8 @@
-import { Coupon, Product } from '../../types.ts';
-import { useCart } from '../hooks';
+import { useProductContext } from '../hooks';
 import { CartDetail, ProductList } from '../components/shop';
 
-interface Props {
-  products: Product[];
-  coupons: Coupon[];
-}
-
-export const CartPage = ({ products, coupons }: Props) => {
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    applyCoupon,
-    calculateTotal,
-    selectedCoupon,
-    getRemainingStock,
-  } = useCart();
+export const CartPage = () => {
+  const { products } = useProductContext();
 
   return (
     <div className="container mx-auto p-4">
@@ -25,18 +10,8 @@ export const CartPage = ({ products, coupons }: Props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ProductList
           products={products}
-          onCartItemAdd={addToCart}
-          getRemainingStock={getRemainingStock}
         />
-        <CartDetail
-          cart={cart}
-          coupons={coupons}
-          onCartItemRemove={removeFromCart}
-          onCartItemQuantityUpdate={updateQuantity}
-          onCouponApply={applyCoupon}
-          calculateTotal={calculateTotal}
-          selectedCoupon={selectedCoupon}
-        />
+        <CartDetail />
       </div>
     </div>
   );

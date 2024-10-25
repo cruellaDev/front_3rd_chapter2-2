@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Product } from '../../../../types.ts';
 import { ProductAccordion } from './ProductAccordian';
 import { Button } from '../../ui';
+import { useProductContext } from '../../../hooks';
 
 export const ProductDetail: React.FC<{
   product: Product;
   index: number;
-  onProductUpdate: (updatedProduct: Product) => void;
-}> = ({ product, index, onProductUpdate }) => {
+}> = ({ product, index }) => {
+  const { onProductUpdate } = useProductContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isProductEditFormEditing, setIsProductEditFormEditing] =
     useState(false);
@@ -37,7 +38,7 @@ export const ProductDetail: React.FC<{
         title={`${product.name} - ${product.price}원 (재고: ${product.stock})`}
         onClick={handleProductAccordionToggle}
         className={'w-full text-left font-semibold'}
-        data-testid={"toggle-button"}
+        data-testid={'toggle-button'}
       />
       {isOpen && (
         <ProductAccordion

@@ -5,9 +5,7 @@ import { ProductView } from './ProductView';
 // 상품 목록
 export const ProductList: React.FC<{
   products: Product[];
-  onCartItemAdd: (product: Product) => void;
-  getRemainingStock: (product: Product) => number;
-}> = memo(({ products, onCartItemAdd, getRemainingStock }) => {
+}> = memo(({ products }) => {
 
   return (
     <div>
@@ -17,8 +15,6 @@ export const ProductList: React.FC<{
           <ProductView
             key={product.id}
             product={product}
-            onCartItemAdd={onCartItemAdd}
-            getRemainingStock={getRemainingStock}
           />
         ))}
       </div>

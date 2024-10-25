@@ -1,4 +1,5 @@
 import { memo, useState } from 'react';
+import { useCouponContext } from '../../../hooks';
 import { Coupon } from '../../../../types.ts';
 import { Button, NumberInput, TextInput } from '../../ui';
 
@@ -10,9 +11,9 @@ const initialCoupon: Coupon = {
 };
 
 // 신규 쿠폰 추가 폼
-export const AddNewCouponForm: React.FC<{
-  onCouponAdd: (newCoupon: Coupon) => void;
-}> = memo(({ onCouponAdd }) => {
+export const AddNewCouponForm: React.FC<{}> = memo(() => {
+  const { onCouponAdd } = useCouponContext();
+
   const [newCoupon, setNewCoupon] = useState<Coupon>(initialCoupon);
 
   // 이벤트 핸들러 - 쿠폰명 변경

@@ -1,13 +1,13 @@
 import { Product } from '../../../../types.ts';
+import { useCartContext } from '../../../hooks';
 import { getMaxDiscount } from '../../../utils/discountUtils.ts';
 import { Button } from '../../ui';
 
 // 상품
 export const ProductView: React.FC<{
   product: Product;
-  onCartItemAdd: (product: Product) => void;
-  getRemainingStock: (product: Product) => number;
-}> = ({ product, onCartItemAdd, getRemainingStock }) => {
+}> = ({ product }) => {
+  const { onCartItemAdd, getRemainingStock } = useCartContext();
   const { id, name, price, discounts } = product;
   const remainingStock = getRemainingStock(product);
   const hasStock = remainingStock > 0;
